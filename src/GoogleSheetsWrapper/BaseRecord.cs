@@ -1,10 +1,5 @@
-﻿using Google.Apis.Sheets.v4.Data;
-using System;
+﻿using GoogleSheetsWrapper.Utils;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
 
 namespace GoogleSheetsWrapper
 {
@@ -39,13 +34,13 @@ namespace GoogleSheetsWrapper
 
             foreach (var attribute in attributes)
             {
-                var sheetRange = new SheetRange(tabName, attribute.Key.ColumnID, this.RowId);
+                var sheetRange = new SheetRange(tabName, attribute.Key.SheetField.ColumnID, this.RowId);
 
                 results.Add(new BatchUpdateRequestObject()
                 {
                     Range = sheetRange,
                     Data = SheetFieldAttributeUtils.GetCellDataForSheetField(this, attribute.Key, attribute.Value),
-                    FieldAttribute = attribute.Key,
+                    FieldAttribute = attribute.Key.SheetField,
                 });
             }
 
