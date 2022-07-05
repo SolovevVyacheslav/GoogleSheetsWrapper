@@ -7,6 +7,8 @@ namespace GoogleSheetsWrapper.Attributes
     /// </summary>
     public class SheetFieldBorderAttribute : Attribute
     {
+        public SheetFieldBorderAttribute() { }
+
         /// <summary>
         /// Borders attribute consists of style and color values.
         /// </summary>
