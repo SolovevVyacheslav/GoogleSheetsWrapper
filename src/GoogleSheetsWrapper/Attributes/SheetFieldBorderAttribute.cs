@@ -24,6 +24,15 @@ namespace GoogleSheetsWrapper.Attributes
         }
 
         /// <summary>
+        /// Borders attribute consists of style and color values.
+        /// </summary>
+        /// <param name="bordersStyle">Positional format: [allBorders] [left, top, right, bottom]  [leftAndRight, topAndBottom]</param>
+        public SheetFieldBorderAttribute(BorderStyle[] bordersStyle)
+        {
+            BordersStyle = bordersStyle;
+        }
+
+        /// <summary>
         /// [allBorders]
         /// [left, top, right, bottom]
         /// [leftAndRight, topAndBottom]
