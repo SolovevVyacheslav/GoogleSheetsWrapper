@@ -1,4 +1,5 @@
 ﻿using Google.Apis.Sheets.v4.Data;
+using GoogleSheetsWrapper.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,8 +47,8 @@ namespace GoogleSheetsWrapper
         {
             var attributes = SheetFieldAttributeUtils.GetAllSheetFieldAttributes<T>();
 
-            var maxColumnId = attributes.Max(a => a.Key.ColumnID);
-            var minColumnId = attributes.Min(a => a.Key.ColumnID);
+            var maxColumnId = attributes.Max(a => a.Key.SheetField.ColumnID);
+            var minColumnId = attributes.Min(a => a.Key.SheetField.ColumnID);
 
             if (this.HasHeaderRow)
             {
@@ -94,6 +95,11 @@ namespace GoogleSheetsWrapper
         public List<T> GetAllRecords()
         {
             var result = this.SheetsHelper.GetRows(SheetDataRange);
+
+            if (result == null)
+            {
+                return new List<T>();
+            }
 
             var records = new List<T>(result.Count);
 
@@ -179,7 +185,7 @@ namespace GoogleSheetsWrapper
 
             foreach (var kvp in fieldAttributes)
             {
-                var attribute = kvp.Key;
+                var attribute = kvp.Key.SheetField;
 
                 if (row.Count < (attribute.ColumnID))
                 {

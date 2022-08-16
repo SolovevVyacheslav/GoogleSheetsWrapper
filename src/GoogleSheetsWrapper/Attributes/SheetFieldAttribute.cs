@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GoogleSheetsWrapper
+namespace GoogleSheetsWrapper.Attributes
 {
     /// <summary>
     /// These fields MUST match header of sheet fields.
     /// </summary>
     public class SheetFieldAttribute : Attribute
     {
+        private string _numberFormatPattern;
+
         protected static Dictionary<SheetFieldType, string> DefaultFormatPatterns = new Dictionary<SheetFieldType, string>()
         {
             { SheetFieldType.String, "" },
@@ -34,8 +36,6 @@ namespace GoogleSheetsWrapper
         /// </summary>
         public SheetFieldType FieldType { get; set; }
 
-        private string _numberFormatPattern;
-
         /// <summary>
         /// Optional property to override the default format pattern for any of the SheetFieldTypes
         /// </summary>
@@ -45,7 +45,7 @@ namespace GoogleSheetsWrapper
             {
                 if (_numberFormatPattern == null)
                 {
-                    return DefaultFormatPatterns[this.FieldType];
+                    return DefaultFormatPatterns[FieldType];
                 }
 
                 return _numberFormatPattern;
