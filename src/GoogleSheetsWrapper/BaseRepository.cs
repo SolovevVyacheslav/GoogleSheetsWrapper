@@ -96,6 +96,11 @@ namespace GoogleSheetsWrapper
         {
             var result = this.SheetsHelper.GetRows(SheetDataRange);
 
+            if (result == null)
+            {
+                return new List<T>();
+            }
+
             var records = new List<T>(result.Count);
 
             for (int r = 0; r < result.Count; r++)
